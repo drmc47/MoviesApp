@@ -1,18 +1,62 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.css";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import "./NavBar.css";
 
 function NavBar() {
+  const [click, setClick] = useState(false);
+
+  const handleClick = () => setClick(!click);
   return (
-    <Navbar bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="/">MoviesApp</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/favourites">Favs</Nav.Link>
-        </Nav>
-      </Container>
-    </Navbar>
+    <>
+      <nav className="navbar">
+        <div className="nav-container">
+          <NavLink exact to="/" className="nav-logo">
+            MoviesApp
+            <i className="fas fa-code"></i>
+          </NavLink>
+
+          <ul className={click ? "nav-menu active" : "nav-menu"}>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/favourites"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Favourites
+              </NavLink>
+            </li>
+            
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/about"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                About
+              </NavLink>
+            </li>
+          </ul>
+          <div className="nav-icon" onClick={handleClick}>
+            <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }
 

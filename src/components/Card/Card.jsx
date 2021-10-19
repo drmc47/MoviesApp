@@ -1,7 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addFavourite } from "../../actions";
 import "./Card.css";
 function Card({ name, image, id }) {
+  const dispatch = useDispatch();
+  let addFav = () => {
+    dispatch(addFavourite({name, image, id}))
+  }
   return (
     <div className=" d-flex m-3">
       <img src={image} alt="img not found" className="cardImage" />
@@ -14,6 +20,7 @@ function Card({ name, image, id }) {
       >
         <h2>{name}</h2>
       </Link>
+        <button onClick={addFav}>❤️</button>
     </div>
   );
 }
