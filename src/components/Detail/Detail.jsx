@@ -16,12 +16,12 @@ function Detail({ location: { search } }) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [id]);
   return detail.Title ? (
     <div className="container detailDiv">
       <h1>{detail.Title}</h1>
       <div className="d-flex">
-        <img src={detail.Poster} alt="no image found" />
+        <img src={detail.Poster} alt="not found" />
         <div>
           <p>
             <b> Fecha de estreno</b> {detail.Year}

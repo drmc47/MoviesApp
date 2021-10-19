@@ -1,20 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Card from "../Card/Card";
+import "bootstrap/dist/css/bootstrap.css";
+
 
 function Home() {
   const [movies, setmovies] = useState([]);
   const [input, setinput] = useState("");
-
-  //     useEffect(() => {
-  //         axios.get('https://www.omdbapi.com/?s=star%20wars&type=movie&page=1&apikey=a99b2602')
-  //     .then(response => {
-  //         setmovies(response.data.Search)
-  //     })
-  //     .catch(error => {
-  //         console.log(error)
-  //     })
-  // }, [])
 
   let handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +27,8 @@ function Home() {
   let handleChange = (e) => {
     setinput(e.target.value);
   };
+  const enabled = input.length;
+
   return movies.length ? (
     <div className="container">
       <div>
@@ -77,7 +71,7 @@ function Home() {
             className="inputSearch"
             value={input}
           />
-          <button type="submit">Search</button>
+          <button type="submit"  disabled={!enabled}>Search</button>
         </label>
       </form>
     </div>
