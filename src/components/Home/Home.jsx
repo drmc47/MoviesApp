@@ -27,6 +27,8 @@ function Home() {
   let handleChange = (e) => {
     setinput(e.target.value);
   };
+  const enabled = input.length;
+
   return movies.length ? (
     <div className="container">
       <div>
@@ -69,7 +71,7 @@ function Home() {
             className="inputSearch"
             value={input}
           />
-          <button type="submit">Search</button>
+          <button type="submit"  disabled={!enabled}>Search</button>
         </label>
       </form>
     </div>
