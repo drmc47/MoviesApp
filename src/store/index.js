@@ -9,9 +9,16 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_FAV: 
+        let found = state.favs.find((peli)=>peli.id===action.payload.id);
+        if (!found) {
+            return {
+                ...state,
+                favs : state.favs.concat(action.payload)
+            }
+        }
         return {
             ...state,
-            favs : state.favs.concat(action.payload)
+            favs: state.favs.filter(peli=> peli.id!==found.id )
         }
 
         default:

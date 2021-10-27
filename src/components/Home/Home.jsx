@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import Card from "../Card/Card";
 import "bootstrap/dist/css/bootstrap.css";
+import { useHistory } from "react-router";
 
 
 function Home() {
+  const history = useHistory();
   const [movies, setmovies] = useState([]);
   const [input, setinput] = useState("");
 
@@ -21,7 +23,7 @@ function Home() {
         console.log(movies);
       })
       .catch((error) => {
-        console.log(error);
+        history.push('/')
       });
   };
   let handleChange = (e) => {
@@ -29,7 +31,7 @@ function Home() {
   };
   const enabled = input.length;
 
-  return movies.length ? (
+  return movies?.length ? (
     <div className="container">
       <div>
         <form onSubmit={(e) => handleSubmit(e)} className="theForm ">
