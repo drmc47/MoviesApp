@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Card from "../Card/Card";
 import "bootstrap/dist/css/bootstrap.css";
 import { useHistory } from "react-router";
+import styled from 'styled-components';
 
 
 function Home() {
@@ -19,11 +20,12 @@ function Home() {
         )}&type=movie&page=1&apikey=a99b2602`
       )
       .then((response) => {
+        response.data.Error ? alert(response.data.Error) : 
         setmovies(response.data.Search);
-        console.log(movies);
       })
       .catch((error) => {
-        history.push('/')
+        console.log(error);
+        history.push('/');
       });
   };
   let handleChange = (e) => {
@@ -31,13 +33,13 @@ function Home() {
   };
   const enabled = input.length;
 
-  return movies?.length ? (
+  return (
     <div className="container">
       <div>
-        <form onSubmit={(e) => handleSubmit(e)} className="theForm ">
+        <SearchBar onSubmit={(e) => handleSubmit(e)} className="theForm ">
           <label>
             Search movie:
-            <input
+            <Input
               type="text"
               name="name"
               placeholder="keyword..."
@@ -45,10 +47,12 @@ function Home() {
               className="inputSearch"
               value={input}
             />
-            <button type="submit">Search</button>
+            <SearchButton type="submit" disabled={!enabled}>Search</SearchButton>
           </label>
-        </form>
+        </SearchBar>
       </div>
+
+      {movies?.length ? 
       <div className="d-flex flex-wrap">
         {movies.map((peli, key) => (
           <Card
@@ -56,30 +60,46 @@ function Home() {
             image={peli.Poster}
             key={key}
             id={peli.imdbID}
-          />
-        ))}
+          />))}
       </div>
+          : 
+          null}
     </div>
-  ) : (
-    <div className="container">
-      <form onSubmit={(e) => handleSubmit(e)} className="theForm">
-        <label>
-          Search movie:
-          <input
-            type="text"
-            name="name"
-            placeholder="keyword..."
-            onChange={(e) => handleChange(e)}
-            className="inputSearch"
-            value={input}
-          />
-          <button type="submit"  disabled={!enabled}>Search</button>
-        </label>
-      </form>
-    </div>
-  );
+
+  ) 
 }
 
+const SearchBar = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+`
+const Input = styled.input`
+    border-radius: 5px;
+    padding : 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+`
+
+const SearchButton = styled.button`
+    padding: 5px 12px;
+    background-color: #f5b921;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+
+
+    &:hover {
+      transition: all 0.2s ease-in-out;
+      background: lightgreen;
+      color: #010606;
+    }
+    &:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+`
 export default Home;
 
 //apiKey=a99b2602

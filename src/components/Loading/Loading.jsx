@@ -1,9 +1,20 @@
-.detailDiv h1 {
-    margin: 2rem 0;
-    text-align: center;
-}
+import React from 'react';
+import styled from 'styled-components';
 
-/* .cargando {
+function Loading() {
+    return (
+        <DivA>
+            <DivB></DivB>
+        </DivA>
+    )
+}
+const DivA = styled.div`
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+`
+
+const DivB = styled.div`
     display: block;
     width: 50px;
     height: 50px;
@@ -17,14 +28,12 @@
     top:50%;
     left: 50%;
     transform: translate(-50%,-50%);
-}
-.bg-cargando{
-    min-width: 100%;
-    min-height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
 
-@keyframes rotar {
+    @keyframes rotar {
     from{transform: rotate(0);}
     to{transform: rotate(360deg);}
-} */
+}
+
+`
+
+export default Loading

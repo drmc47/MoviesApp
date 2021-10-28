@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Loading from "../Loading/Loading";
 import "./detail.css";
 
 function Detail({ location: { search } }) {
   let id = search.substring(1);
   const [detail, setdetail] = useState([]);
-  console.log(search);
 
   useEffect(() => {
     axios
@@ -16,6 +16,7 @@ function Detail({ location: { search } }) {
       .catch((error) => {
         console.log(error);
       });
+
   }, [id]);
   return detail.Title ? (
     <div className="container detailDiv">
@@ -36,9 +37,7 @@ function Detail({ location: { search } }) {
       </div>
     </div>
   ) : (
-    <div className="bg-cargando">
-      <div className="cargando"></div>
-    </div>
+    <Loading/>
   );
 }
 
