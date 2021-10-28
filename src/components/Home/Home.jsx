@@ -1,32 +1,22 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "bootstrap/dist/css/bootstrap.css";
-import { useHistory } from "react-router";
 import styled from 'styled-components';
+import { useDispatch } from "react-redux";
+import { searchMovie } from "../../actions";
+import { useSelector } from "react-redux";
 
 
 function Home() {
-  const history = useHistory();
-  const [movies, setmovies] = useState([]);
+  const dispatch = useDispatch();
+  const movies = useSelector(state => state.movies)
   const [input, setinput] = useState("");
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .get(
-        `https://www.omdbapi.com/?s=${encodeURI(
-          input
-        )}&type=movie&page=1&apikey=a99b2602`
-      )
-      .then((response) => {
-        response.data.Error ? alert(response.data.Error) : 
-        setmovies(response.data.Search);
-      })
-      .catch((error) => {
-        console.log(error);
-        history.push('/');
-      });
+    dispatch(searchMovie(input))
+    setinput('');
+    
   };
   let handleChange = (e) => {
     setinput(e.target.value);
@@ -60,6 +50,7 @@ function Home() {
             image={peli.Poster}
             key={key}
             id={peli.imdbID}
+            year={peli.Year}
           />))}
       </div>
           : 

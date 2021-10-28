@@ -6,17 +6,17 @@ function Favs() {
     const favs = useSelector(state => state.favs)
     return (
         favs.length ? 
-        <div>
+        <div className="d-flex flex-wrap">
             {favs.map((peli, key) => (
           <Card
-            name={peli.name}
-            image={peli.image}
-            key={key}
-            id={peli.id}
+          name={peli.Title}
+          image={peli.Poster}
+          key={key}
+          id={peli.imdbID}
+          year={peli.Year}
           />
           ))}
         </div>
-
         : 
         <h1>No favs yet :c</h1>
     )

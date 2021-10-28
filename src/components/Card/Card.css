@@ -1,6 +1,7 @@
 .cardImage {
   width: 300px;
   height: 433px;
+  border-radius: 5px;
 }
 .text-title {
   width: 300px;
